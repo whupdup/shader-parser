@@ -334,7 +334,19 @@ namespace {
 				break;
 		}
 
-		if (li.type == ShaderInfo::LayoutType::ATTRIB_IN || li.type == ShaderInfo::LayoutType::ATTRIB_OUT
+        if (li.type == ShaderInfo::LayoutType::ATTRIB_IN) {
+            if (!::expect(++it, end, {Token::TYPE_IDENTIFIER, Token::TYPE_SEMI_COLON})) {
+                return false;
+            }
+
+            if (it->type == Token::TYPE_IDENTIFIER) {
+                li.typeQualifier = it->data;
+            }
+            else {
+                return true;
+            }
+        }
+		else if (li.type == ShaderInfo::LayoutType::ATTRIB_OUT
 				|| li.type == ShaderInfo::LayoutType::UNIFORM) {
 			if (!::expect(++it, end, Token::TYPE_IDENTIFIER)) {
 				return false;
