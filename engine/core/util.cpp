@@ -46,7 +46,7 @@ String Util::getFilePath(const String& fileName) {
 	}
 
 	if (end == 0) {
-		return fileName;
+		return "";
 	}
 	
 	return fileName.substr(0, end + 1);
